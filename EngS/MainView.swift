@@ -15,6 +15,7 @@ struct MainView: View {
 //    @StateObject var userHistoryM = userDataClass()
     @Binding var userHistory : [String]
     @Binding var words :[String]
+    @Binding var wordsFlashCard :[String]
     var body: some View {
         
         NavigationView {
@@ -51,7 +52,7 @@ struct MainView: View {
                     Spacer()
                     
                 }.tabItem{Text("Flash card")}.onAppear(){
-                    randomText = words.randomElement() ?? "error"
+                    randomText = wordsFlashCard.randomElement() ?? "error"
                 }
                 
                 VStack {

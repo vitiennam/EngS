@@ -8,6 +8,7 @@
 import Foundation
 class EngData {
     var wordList : [String] = []
+    var wordListFlashCard : [String] = []
 }
 class userDataClass: ObservableObject {
     var searchedWord : [String] = []
@@ -48,6 +49,17 @@ func load(fileName: String) -> [String] {
         return []
     }
     
+}
+func loadArrayFile (fileName:String)-> [String] {
+    do {
+        let fileURL = try fileURL(fileName: fileName)
+        let file = try FileHandle(forReadingFrom: fileURL)
+        let wordsList = try JSONDecoder().decode([String].self, from: file.availableData)
+        return wordsList
+    } catch {
+        let err = error
+        return []
+    }
 }
 func saveArrayFile(fileName:String, dataFile: [String]) -> Bool {
     do {
