@@ -38,6 +38,8 @@ struct WordView: View {
             }
 //            userHistory.append(wordSearch)
             userHistory.insert(wordSearch, at: 0)
+            let err = saveArrayFile(fileName: "userHistory.json", dataFile: userHistory)
+
         }
         
     }
