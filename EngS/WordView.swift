@@ -7,10 +7,13 @@
 
 import SwiftUI
 import WebKit
-
+import RealmSwift
 struct WordView: View {
     @State var wordSearch : String
     @Binding var userHistory : [String]
+//    @ObservedRealmObject var userDataRealm : UserDataClassRealm
+    @Binding var userSearchedRealm : RealmSwift.List<String>
+    @ObservedRealmObject var userDataRealm : UserDataClassRealm
     var body: some View {
         
         VStack {
@@ -39,7 +42,9 @@ struct WordView: View {
 //            userHistory.append(wordSearch)
             userHistory.insert(wordSearch, at: 0)
             let err = saveArrayFile(fileName: "userHistory.json", dataFile: userHistory)
-
+//            $userDataRealm.userSearchedWord.append(wordSearch)
+//            userSearchedRealm.append(wordSearch)
+            $userDataRealm.userSearchedWord.append(wordSearch)
         }
         
     }

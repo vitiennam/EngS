@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import RealmSwift
+import UIKit
+
 class EngData {
     var wordList : [String] = []
     var wordListFlashCard : [String] = []
@@ -15,6 +18,19 @@ class userDataClass: ObservableObject {
     var flashCardWord : [String] = []
     @Published var userSearchedWord : [String] = []
 }
+class word: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id:String
+    @Persisted var ownerId = ""
+    @Persisted var word: String
+}
+class UserDataClassRealm: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id: UUID
+//    @Persisted var ownerId = UIDevice.current.identifierForVendor!.uuidString
+    @Persisted var ownerId = ""
+    @Persisted var userSearchedWord : RealmSwift.List<String>
+    @Persisted var temp = "hi"
+}
+
 func fileURL(fileName: String) throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
                                        in: .userDomainMask,

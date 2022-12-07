@@ -6,16 +6,22 @@
 //
 
 import SwiftUI
-
+import RealmSwift
 struct MainView: View {
     @State var searchString = ""
     @State var randomText = ""
     @State var onEditingText = false
+//    @State var username : String
 //    @State var words :[String] = ["a", "abandon", "ability", "able", "abolish", "red"]
 //    @StateObject var userHistoryM = userDataClass()
     @Binding var userHistory : [String]
     @Binding var words :[String]
     @Binding var wordsFlashCard :[String]
+    @ObservedRealmObject var userDataRealm : UserDataClassRealm
+//    @ObservedResults(UserDataClassRealm.self) var usersDataRealm
+//    @Environment(\.realm) var realm
+    
+    @State var inProgress = false
     var body: some View {
         
         NavigationView {
@@ -29,7 +35,7 @@ struct MainView: View {
                             return $0.hasPrefix(searchString.lowercased()) && onEditingText && (searchString != "")
                         }), id: \.self) {
                             word in
-                            NavigationLink(word, destination: WordView(wordSearch: word, userHistory: $userHistory))
+                            NavigationLink(word, destination: WordView(wordSearch: word, userHistory: $userHistory, userSearchedRealm: $userDataRealm.userSearchedWord, userDataRealm: userDataRealm))
 
                         }
                         
@@ -38,6 +44,7 @@ struct MainView: View {
  
                     Text("searching: \(searchString)")
                     Text("array His: \(userHistory.count)")
+                    Text("array His Realm: \(userDataRealm.userSearchedWord.count)")
 //                    List() {
 //                        ForEach(userHistoryM.userSearchedWord, id: \.self){ wordSearched in
 //                            Text(wordSearched)
@@ -48,26 +55,39 @@ struct MainView: View {
                 VStack {
                     Text("Just tab the word")
                     Spacer()
-                    NavigationLink(randomText, destination: WordView(wordSearch: randomText, userHistory: $userHistory))
+                    NavigationLink(randomText, destination: WordView(wordSearch: randomText, userHistory: $userHistory, userSearchedRealm: $userDataRealm.userSearchedWord, userDataRealm: userDataRealm))
                     Spacer()
+                    
                     
                 }.tabItem{Text("Flash card")}.onAppear(){
                     randomText = wordsFlashCard.randomElement() ?? "error"
+//                    $userDataRealm.userSearchedWord.append(randomText)
                 }
                 
                 VStack {
                     
                     List() {
-                        ForEach(userHistory, id: \.self){ wordSearched in
-                            NavigationLink(wordSearched, destination: WordView(wordSearch: wordSearched, userHistory: $userHistory))
-//                            Text(wordSearched)
+//                        ForEach(userHistory, id: \.self){ wordSearched in
+//                            NavigationLink(wordSearched, destination: WordView(wordSearch: wordSearched, userHistory: $userHistory))
+//
+//                        }
+                        
+                        ForEach(userDataRealm.userSearchedWord, id: \.self){ wordSearched in
+                            NavigationLink(wordSearched, destination: WordView(wordSearch: wordSearched, userHistory: $userHistory, userSearchedRealm: $userDataRealm.userSearchedWord, userDataRealm: userDataRealm))
                             
                         }
+                        
+                        
+                        
                     }
+
+                        
+                        
+                    
                 }.tabItem{
                     Text("History")
                 
-//                Text("Learn New Word").padding().border(.gray).cornerRadius(10).shadow(radius: 7)
+
                 }
                     
                     
@@ -76,6 +96,28 @@ struct MainView: View {
         
         
     }
+    
+//    private func setSubscriptions() {
+//
+//            let subscriptions = realm.subscriptions
+//            if subscriptions.first(named: product) == nil {
+//                inProgress = true
+//                subscriptions.update() {
+//                subscriptions.append(QuerySubscription<Ticket>(name: product) { ticket in
+//                    ticket.product == product &&
+//                    (
+//                        ticket.status != .complete || ticket.created > lastYear
+//                    )
+//                })
+//                } onComplete: { _ in
+//                    inProgress = false
+//                }
+//            }
+//
+//    }
+    
+    
+    
 }
 
 //struct MainView_Previews: PreviewProvider {
