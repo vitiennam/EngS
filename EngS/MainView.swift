@@ -33,7 +33,7 @@ struct MainView: View {
                     List {
                         ForEach(words.filter({
                             return $0.hasPrefix(searchString.lowercased()) && onEditingText && (searchString != "")
-                        }), id: \.self) {
+                        }).prefix(10), id: \.self) {
                             word in
                             NavigationLink(word, destination: WordView(wordSearch: word, userHistory: $userHistory, userSearchedRealm: $userDataRealm.userSearchedWord, userDataRealm: userDataRealm))
 
@@ -72,7 +72,7 @@ struct MainView: View {
 //
 //                        }
                         
-                        ForEach(userDataRealm.userSearchedWord, id: \.self){ wordSearched in
+                        ForEach(userDataRealm.userSearchedWord.reversed(), id: \.self){ wordSearched in
                             NavigationLink(wordSearched, destination: WordView(wordSearch: wordSearched, userHistory: $userHistory, userSearchedRealm: $userDataRealm.userSearchedWord, userDataRealm: userDataRealm))
                             
                         }

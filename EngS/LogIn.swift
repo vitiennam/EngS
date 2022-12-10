@@ -152,6 +152,7 @@ struct LoginView: View {
                         // Other views are observing the app and will detect
                         // that the currentUser has changed. Nothing more to do here.
                         print("Logged in as user with id: \(user.id)")
+                        
                     } catch {
                         print("Failed to log in: \(error.localizedDescription)")
                         // Set error to observed property so it can be displayed

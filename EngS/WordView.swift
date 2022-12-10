@@ -44,7 +44,16 @@ struct WordView: View {
             let err = saveArrayFile(fileName: "userHistory.json", dataFile: userHistory)
 //            $userDataRealm.userSearchedWord.append(wordSearch)
 //            userSearchedRealm.append(wordSearch)
-            $userDataRealm.userSearchedWord.append(wordSearch)
+            
+            let duplicated = userDataRealm.userSearchedWord.filter(){
+                $0 == wordSearch
+            }
+            if duplicated.isEmpty {
+                $userDataRealm.userSearchedWord.append(wordSearch)
+
+                
+            }
+            
         }
         
     }

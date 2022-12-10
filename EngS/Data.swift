@@ -28,7 +28,8 @@ class UserDataClassRealm: Object, ObjectKeyIdentifiable {
 //    @Persisted var ownerId = UIDevice.current.identifierForVendor!.uuidString
     @Persisted var ownerId = ""
     @Persisted var userSearchedWord : RealmSwift.List<String>
-    @Persisted var temp = "hi"
+    @Persisted var deviceName = UIDevice.current.name
+
 }
 
 func fileURL(fileName: String) throws -> URL {
