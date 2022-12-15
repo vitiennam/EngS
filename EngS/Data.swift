@@ -9,6 +9,8 @@ import Foundation
 import RealmSwift
 import UIKit
 
+
+
 class EngData {
     var wordList : [String] = []
     var wordListFlashCard : [String] = []

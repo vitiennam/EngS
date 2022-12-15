@@ -8,7 +8,7 @@
 import SwiftUI
 import RealmSwift
 
-let realmApp = RealmSwift.App(id: "engs-wnbiw")
+let realmApp = RealmSwift.App(id: serverName)
 let useEmailPasswordAuth = false
 
 
@@ -98,7 +98,7 @@ struct SyncContentView: View {
 
 
 struct OpenSyncedRealmView: View {
-    @AsyncOpen(appId: "engs-wnbiw", timeout: 4000) var asyncOpen
+    @AsyncOpen(appId: serverName, timeout: 4000) var asyncOpen
     @State var wordsList = EngData()
     @StateObject var userDataVar = userDataClass()
 //    @Environment(\.realm) var realm
