@@ -20,11 +20,11 @@ class userDataClass: ObservableObject {
     var flashCardWord : [String] = []
     @Published var userSearchedWord : [String] = []
 }
-class word: Object, ObjectKeyIdentifiable {
-    @Persisted(primaryKey: true) var _id:String
-    @Persisted var ownerId = ""
-    @Persisted var word: String
-}
+//class word: Object, ObjectKeyIdentifiable {
+//    @Persisted(primaryKey: true) var _id:String
+//    @Persisted var ownerId = ""
+//    @Persisted var word: String
+//}
 class UserDataClassRealm: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: UUID
 //    @Persisted var ownerId = UIDevice.current.identifierForVendor!.uuidString
