@@ -15,7 +15,10 @@
 * Search English word and show result on 3 website: Oxford, Cambrigde, Google Translate (work on IOS)
 * Flash Card
 * Save your history word on Mongodb database by using Realm
-  
+
+# UI:
+* Swift UI
+
 # Libraries:
 * Realm
 
